@@ -5,9 +5,6 @@
 
 import * as React from 'react';
 
-declare var LARGE_PANEL_CONTENT_HEIGHT: number;
-declare var SMALL_PANEL_CONTENT_HEIGHT: number;
-
 declare interface SwipeablePanelProps extends React.Props<SwipeablePanel> {
   /**
    * Required prop for panels actual state. Set true if you want to open panel
@@ -87,6 +84,9 @@ declare interface SwipeablePanelProps extends React.Props<SwipeablePanel> {
   onClose: () => void;
 }
 
-declare class SwipeablePanel extends React.Component<SwipeablePanelProps, any> {}
+declare class SwipeablePanel extends React.Component<
+  SwipeablePanelProps,
+  any
+> {}
 
-export { SwipeablePanel, LARGE_PANEL_CONTENT_HEIGHT, SMALL_PANEL_CONTENT_HEIGHT };
+export { SwipeablePanel };

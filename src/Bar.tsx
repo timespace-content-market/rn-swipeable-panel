@@ -5,7 +5,7 @@ type BarProps = {
   barStyle?: object;
 };
 
-export const Bar = ({ barStyle }: BarProps) => {
+export const Bar: React.FC<BarProps> = ({ barStyle }) => {
   return (
     <View style={BarStyles.barContainer}>
       <View style={[BarStyles.bar, barStyle]} />

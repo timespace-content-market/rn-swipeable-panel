@@ -2,16 +2,32 @@ import * as React from 'react';
 import { StyleSheet, TouchableOpacity, View } from 'react-native';
 
 type CloseProps = {
-  onPress: () => void;
+  onPress?: () => void;
   rootStyle?: object;
   iconStyle?: object;
 };
 
 export const Close = ({ onPress, rootStyle, iconStyle }: CloseProps) => {
   return (
-    <TouchableOpacity activeOpacity={0.5} onPress={() => onPress()} style={[CloseStyles.closeButton, rootStyle]}>
-      <View style={[CloseStyles.iconLine, iconStyle, { transform: [{ rotateZ: '45deg' }] }]} />
-      <View style={[CloseStyles.iconLine, iconStyle, { transform: [{ rotateZ: '135deg' }] }]} />
+    <TouchableOpacity
+      activeOpacity={0.5}
+      onPress={onPress}
+      style={[CloseStyles.closeButton, rootStyle]}
+    >
+      <View
+        style={[
+          CloseStyles.iconLine,
+          iconStyle,
+          { transform: [{ rotateZ: '45deg' }] },
+        ]}
+      />
+      <View
+        style={[
+          CloseStyles.iconLine,
+          iconStyle,
+          { transform: [{ rotateZ: '135deg' }] },
+        ]}
+      />
     </TouchableOpacity>
   );
 };

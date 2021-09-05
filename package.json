@@ -99,6 +99,7 @@
     "typescript": "^3.7.5"
   },
   "dependencies": {
+    "eslint-plugin-unused-imports": "^1.1.4",
     "rn-swipeable-panel": "^1.2.3"
   }
 }
