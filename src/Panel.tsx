@@ -47,7 +47,7 @@ interface SwipeablePanelProps {
 }
 
 interface SwipeablePanelState {
-  status: number;
+  status: STATUS;
   isActive: boolean;
   showComponent: boolean;
   canScroll: boolean;
@@ -70,10 +70,6 @@ class SwipeablePanel extends React.Component<
 
   SMALL_PANEL_CONTENT_HEIGHT: number = PANEL_HEIGHT - (FULL_HEIGHT - 400) - 25;
   LARGE_PANEL_CONTENT_HEIGHT: number = PANEL_HEIGHT - 25;
-
-  static defaultProps: Partial<SwipeablePanelProps> = {
-    canClose: true,
-  };
 
   constructor(props: SwipeablePanelProps) {
     super(props);
@@ -106,8 +102,10 @@ class SwipeablePanel extends React.Component<
       onPanResponderMove: (evt, gestureState) => {
         if (
           (this.state.status === STATUS.SMALL &&
-            Math.abs(evt.nativeEvent.pageY) <= this.animatedValueY) ||
-          (this.state.status === STATUS.LARGE && evt.nativeEvent.pageY >= 1)
+            Math.abs((this.state.pan.y as any)._value) <=
+              (this.state.pan.y as any)._offset) ||
+          (this.state.status === STATUS.LARGE &&
+            (this.state.pan.y as any)._value > -1)
         )
           this.state.pan.setValue({
             x: 0,
@@ -127,12 +125,11 @@ class SwipeablePanel extends React.Component<
           if (this.state.status === STATUS.SMALL)
             this._animateTo(onlySmall ? STATUS.SMALL : STATUS.LARGE);
           else this._animateTo(STATUS.LARGE);
-        } else if (
-          gestureState.dy > 100 ||
-          (gestureState.vy > 0.5 && this.props.canClose)
-        ) {
+        } else if (gestureState.dy > 100 || gestureState.vy > 0.5) {
           if (this.state.status === STATUS.LARGE)
-            this._animateTo(onlyLarge ? STATUS.CLOSED : STATUS.SMALL);
+            this._animateTo(
+              onlyLarge && this.props.canClose ? STATUS.CLOSED : STATUS.SMALL,
+            );
           else this._animateTo(0);
         } else {
           this._animateTo(this.state.status);
@@ -219,19 +216,31 @@ class SwipeablePanel extends React.Component<
     if (this.props.canClose && newStatus === STATUS.CLOSED) {
       newY = PANEL_HEIGHT;
     } else if (newStatus === STATUS.SMALL) {
-      newY =
-        this.props.smallPanelHeight ??
-        (this.state.orientation === 'portrait'
-          ? FULL_HEIGHT - 400
-          : FULL_HEIGHT / 3);
+      newY = this.props.smallPanelHeight
+        ? FULL_HEIGHT - this.props.smallPanelHeight
+        : this.state.orientation === 'portrait'
+        ? FULL_HEIGHT - 400
+        : FULL_HEIGHT / 3;
     } else if (newStatus === STATUS.LARGE) {
-      newY = this.props.largePanelHeight ?? 0;
+      newY = this.props.largePanelHeight
+        ? FULL_HEIGHT - this.props.largePanelHeight
+        : 0;
     }
 
-    this.setState({
-      showComponent: true,
-      status: newStatus,
-    });
+    this.setState(
+      {
+        showComponent: true,
+        status: newStatus,
+      },
+      () => {
+        console.log(
+          this.state.showComponent,
+          this.state.status,
+          newY,
+          FULL_HEIGHT,
+        );
+      },
+    );
 
     Animated.spring(this.state.pan, {
       toValue: { x: 0, y: newY },

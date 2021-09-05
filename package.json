@@ -1,12 +1,12 @@
 {
-  "name": "rn-swipeable-panel",
-  "version": "1.2.5",
+  "name": "react-native-swipe-up-panel",
+  "version": "1.2.11",
   "description": "Swipeable bottom panel for react native",
   "author": "Enes Ozturk",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/enesozturk/rn-swipeable-panel"
+    "url": "https://github.com/zusinShinpei/rn-swipeable-panel"
   },
   "main": "dist/index.js",
   "module": "dist/index.modern.js",
@@ -53,13 +53,17 @@
     "bottom-up-panel"
   ],
   "bugs": {
-    "url": "https://github.com/enesozturk/rn-swipeable-panel/issues"
+    "url": "https://github.com/zusinShinpei/rn-swipeable-panel/issues"
   },
-  "homepage": "https://github.com/enesozturk/rn-swipeable-panel",
+  "homepage": "https://github.com/zusinShinpei/rn-swipeable-panel",
   "contributors": [
     {
       "name": "enesozturk",
       "email": "enesozturk.d@gmail.com"
+    },
+    {
+      "name": "Noel Kim",
+      "email": "react-native@kakao.com"
     }
   ],
   "peerDependencies": {
@@ -96,10 +100,7 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^3.4.1",
-    "typescript": "^3.7.5"
-  },
-  "dependencies": {
-    "eslint-plugin-unused-imports": "^1.1.4",
-    "rn-swipeable-panel": "^1.2.3"
+    "typescript": "^3.7.5",
+    "eslint-plugin-unused-imports": "^1.1.4"
   }
 }
