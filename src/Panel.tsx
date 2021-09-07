@@ -3,6 +3,7 @@ import {
   Animated,
   Dimensions,
   PanResponder,
+  PanResponderInstance,
   ScrollView,
   ScrollViewProps,
   StyleSheet,
@@ -65,7 +66,7 @@ class SwipeablePanel extends React.Component<
 > {
   pan: Animated.ValueXY;
   isClosing: boolean;
-  _panResponder: any;
+  _panResponder: PanResponderInstance;
   animatedValueY: number;
 
   SMALL_PANEL_CONTENT_HEIGHT: number = PANEL_HEIGHT - (FULL_HEIGHT - 400) - 25;
@@ -227,20 +228,10 @@ class SwipeablePanel extends React.Component<
         : 0;
     }
 
-    this.setState(
-      {
-        showComponent: true,
-        status: newStatus,
-      },
-      () => {
-        console.log(
-          this.state.showComponent,
-          this.state.status,
-          newY,
-          FULL_HEIGHT,
-        );
-      },
-    );
+    this.setState({
+      showComponent: true,
+      status: newStatus,
+    });
 
     Animated.spring(this.state.pan, {
       toValue: { x: 0, y: newY },
