@@ -4,10 +4,8 @@ import {
   Dimensions,
   PanResponder,
   PanResponderInstance,
-  ScrollView,
   ScrollViewProps,
   StyleSheet,
-  TouchableHighlight,
   TouchableWithoutFeedback,
   View,
 } from 'react-native';
@@ -317,27 +315,7 @@ class SwipeablePanel extends React.Component<
               onPress={this.props.onClose}
             />
           )}
-          <ScrollView
-            onTouchStart={() => {
-              return false;
-            }}
-            onTouchEnd={() => {
-              return false;
-            }}
-            {...this.props.scrollViewProps}
-            contentContainerStyle={[
-              SwipeablePanelStyles.scrollViewContentContainerStyle,
-              this.props.scrollViewProps?.contentContainerStyle,
-            ]}
-          >
-            {this.state.canScroll ? (
-              <TouchableHighlight>
-                <>{this.props.children}</>
-              </TouchableHighlight>
-            ) : (
-              this.props.children
-            )}
-          </ScrollView>
+          {this.props.children}
         </Animated.View>
       </Animated.View>
     ) : null;
