@@ -129,7 +129,7 @@ class SwipeablePanel extends React.Component<
             this._animateTo(
               onlyLarge && this.props.canClose ? STATUS.CLOSED : STATUS.SMALL,
             );
-          else this._animateTo(0);
+          else this._animateTo(this.state.status);
         } else {
           this._animateTo(this.state.status);
         }
