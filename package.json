@@ -1,6 +1,6 @@
 {
   "name": "react-native-swipe-up-panel",
-  "version": "1.2.14",
+  "version": "1.2.15",
   "description": "Swipeable bottom panel for react native",
   "author": "Enes Ozturk",
   "license": "MIT",
@@ -67,8 +67,8 @@
     }
   ],
   "peerDependencies": {
-    "react": "^16.0.0",
-    "react-native": "^0.62.2"
+    "react": "^17.0.0",
+    "react-native": "^0.64.0"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^4.2.4",
