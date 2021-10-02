@@ -17,7 +17,7 @@ let FULL_HEIGHT = Dimensions.get('window').height;
 let FULL_WIDTH = Dimensions.get('window').width;
 let PANEL_HEIGHT = FULL_HEIGHT - 100;
 
-enum STATUS {
+export enum STATUS {
   CLOSED = 0,
   SMALL = 1,
   LARGE = 2,
