@@ -43,6 +43,7 @@ interface SwipeablePanelProps {
   scrollViewProps?: ScrollViewProps;
   smallPanelHeight?: number;
   largePanelHeight?: number;
+  onChangeStatus?: (status: STATUS) => void;
 }
 
 interface SwipeablePanelState {
@@ -229,6 +230,8 @@ class SwipeablePanel extends React.Component<
     this.setState({
       showComponent: true,
       status: newStatus,
+    }, () => {
+      this.props.onChangeStatus?.(this.state.status);
     });
 
     Animated.spring(this.state.pan, {
