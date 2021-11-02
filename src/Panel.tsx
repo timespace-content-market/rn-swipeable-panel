@@ -57,6 +57,7 @@ interface SwipeablePanelState {
   deviceWidth: number;
   deviceHeight: number;
   panelHeight: number;
+  currentHeight: number; 
 }
 
 class SwipeablePanel extends React.Component<
@@ -84,6 +85,11 @@ class SwipeablePanel extends React.Component<
       deviceWidth: FULL_WIDTH,
       deviceHeight: FULL_HEIGHT,
       panelHeight: PANEL_HEIGHT,
+      currentHeight: this.props.smallPanelHeight
+      ? FULL_HEIGHT - this.props.smallPanelHeight
+      : this.state.orientation === 'portrait'
+      ? FULL_HEIGHT - 400
+      : FULL_HEIGHT / 3
     };
 
     this.pan = new Animated.ValueXY({ x: 0, y: FULL_HEIGHT });
@@ -230,18 +236,19 @@ class SwipeablePanel extends React.Component<
     this.setState({
       showComponent: true,
       status: newStatus,
-    }, () => {
-      this.props.onChangeStatus?.(this.state.status);
+      currentHeight: PANEL_HEIGHT - newY
     });
 
     Animated.spring(this.state.pan, {
       toValue: { x: 0, y: newY },
-      tension: 80,
+      tension: 40,
       friction: 25,
       useNativeDriver: true,
       restDisplacementThreshold: 10,
       restSpeedThreshold: 10,
     }).start(() => {
+      this.props.onChangeStatus?.(newStatus);
+
       if (newStatus === 0) {
         if (this.props.onClose) this.props.onClose();
         this.setState({
@@ -259,6 +266,7 @@ class SwipeablePanel extends React.Component<
       deviceWidth,
       deviceHeight,
       panelHeight,
+      currentHeight,
     } = this.state;
     const {
       noBackgroundOpacity,
@@ -279,7 +287,7 @@ class SwipeablePanel extends React.Component<
             backgroundColor: noBackgroundOpacity
               ? 'rgba(0,0,0,0)'
               : 'rgba(0,0,0,0.5)',
-            height: allowTouchOutside ? 'auto' : deviceHeight,
+            height: allowTouchOutside ? currentHeight : deviceHeight,
             width: deviceWidth,
           },
         ]}
@@ -292,7 +300,7 @@ class SwipeablePanel extends React.Component<
                 {
                   width: deviceWidth,
                   backgroundColor: 'rgba(0,0,0,0)',
-                  height: allowTouchOutside ? 'auto' : deviceHeight,
+                  height: allowTouchOutside ? currentHeight : deviceHeight,
                 },
               ]}
             />
