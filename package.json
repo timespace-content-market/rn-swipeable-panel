@@ -1,6 +1,6 @@
 {
   "name": "react-native-swipe-up-panel",
-  "version": "1.2.21",
+  "version": "1.2.22",
   "description": "Swipeable bottom panel for react native",
   "author": "Enes Ozturk",
   "license": "MIT",
@@ -66,10 +66,6 @@
       "email": "react-native@kakao.com"
     }
   ],
-  "peerDependencies": {
-    "react": "^17.0.1",
-    "react-native": "^0.64.2"
-  },
   "devDependencies": {
     "@types/node": "^12.12.38",
     "@types/react": "^16.9.46",
