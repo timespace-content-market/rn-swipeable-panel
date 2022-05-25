@@ -43,6 +43,7 @@ interface SwipeablePanelProps {
   scrollViewProps?: ScrollViewProps;
   smallPanelHeight?: number;
   largePanelHeight?: number;
+  panOnMove?: boolean;
   onChangeStatus?: (status: STATUS) => void;
 }
 
@@ -57,7 +58,7 @@ interface SwipeablePanelState {
   deviceWidth: number;
   deviceHeight: number;
   panelHeight: number;
-  currentHeight: number; 
+  currentHeight: number;
 }
 
 class SwipeablePanel extends React.Component<
@@ -85,19 +86,29 @@ class SwipeablePanel extends React.Component<
       deviceWidth: FULL_WIDTH,
       deviceHeight: FULL_HEIGHT,
       panelHeight: PANEL_HEIGHT,
-      currentHeight: this.props.smallPanelHeight
+    };
+
+    this.state.currentHeight = this.props.smallPanelHeight
       ? FULL_HEIGHT - this.props.smallPanelHeight
       : this.state.orientation === 'portrait'
       ? FULL_HEIGHT - 400
-      : FULL_HEIGHT / 3
-    };
+      : FULL_HEIGHT / 3;
 
     this.pan = new Animated.ValueXY({ x: 0, y: FULL_HEIGHT });
     this.isClosing = false;
     this.animatedValueY = 0;
 
+    const panHandleProperties = {};
+
+    // panning on move allows you to have child touchableOpacity elements
+    if (props.panOnMove) {
+      panHandleProperties.onMoveShouldSetPanResponder = () => true;
+    } else {
+      panHandleProperties.onStartShouldSetPanResponder = () => true;
+    }
+
     this._panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: () => true,
+      ...panHandleProperties,
       onPanResponderGrant: () => {
         this.state.pan.setOffset({
           x: 0,
@@ -355,14 +366,13 @@ const SwipeablePanelStyles = StyleSheet.create({
     borderTopRightRadius: 20,
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    overflow: 'hidden',
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 1,
+      height: -1,
     },
     shadowOpacity: 0.18,
-    shadowRadius: 1.0,
+    shadowRadius: 3.0,
     elevation: 1,
     zIndex: 2,
   },

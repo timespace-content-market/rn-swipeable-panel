@@ -2,9 +2,9 @@
 
 <h1>React Native Swipeable Panel</h1>
 
-**rn-swipeable-panel** is a swipeable, easy to use bottom panel for your React Native projects. You can extend panel by swiping up, make it small or close by swiping down with pan gestures. Feel free to redesign inside of the panel.
+**react-native-swipe-up-panel** is a swipeable, easy to use bottom panel for your React Native projects. You can extend panel by swiping up, make it small or close by swiping down with pan gestures. Feel free to redesign inside of the panel.
 
-[![npm version](https://img.shields.io/npm/v/rn-swipeable-panel.svg)](https://www.npmjs.com/package/rn-swipeable-panel)
+[![npm version](https://img.shields.io/npm/v/react-native-swipe-up-panel.svg)](https://www.npmjs.com/package/react-native-swipe-up-panel)
 
 </div>
 
@@ -21,7 +21,7 @@
 To install the package;
 
 ```
-$ yarn add rn-swipeable-panel
+$ yarn add react-native-swipe-up-panel
 ```
 
 ✅ It is done!
@@ -34,7 +34,7 @@ $ yarn add rn-swipeable-panel
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { SwipeablePanel } from 'rn-swipeable-panel';
+import { SwipeablePanel } from 'react-native-swipe-up-panel';
 
 export default App = () => {
   const [panelProps, setPanelProps] = useState({
@@ -86,8 +86,9 @@ export default App = () => {
 | **closeIconStyle**      | `Object`   | Use this prop to override close button icon style           | `{}`    |
 | **barStyle**            | `Object`   | Use this prop to override bar style                         | `{}`    |
 | **closeOnTouchOutside** | `bool`     | Set true if you want to close panel by touching outside     | `false` |
-| **allowTouchOutside**   | `bool`     | Set true if you want to make toucable outside of panel      | `false` |
+| **allowTouchOutside**   | `bool`     | Set true if you want to make touchable outside of panel     | `false` |
 | **noBar**               | `bool`     | Set true if you want to remove gray bar                     | `false` |
+| **panOnMove**           | `bool`     | Set true if you want touchable opacity child elements       | `false` |
 | **scrollViewProps**     | `Object`   | Use this prop to override scroll view that inside the panel | `{}`    |
 
 #### ⭐️ Show Your Support
@@ -96,4 +97,4 @@ Please give a ⭐️ if this project helped you!
 
 #### 👏 Contributing
 
-If you have any questions or requests or want to contribute to `rn-swipeable-panel`, please write the [issue](https://github.com/enesozturk/rn-swipeable-panel/issues) or give me a Pull Request freely.
+If you have any questions or requests or want to contribute to `react-native-swipe-up-panel`, please write the [issue](https://github.com/timespace-content-market/react-native-swipe-up-panel/issues) or give me a Pull Request freely.
