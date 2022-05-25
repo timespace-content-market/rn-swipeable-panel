@@ -61,6 +61,11 @@ interface SwipeablePanelState {
   currentHeight: number;
 }
 
+type panHandleProperties = {
+  onMoveShouldSetPanResponder?: () => boolean;
+  onStartShouldSetPanResponder?: () => boolean;
+};
+
 class SwipeablePanel extends React.Component<
   SwipeablePanelProps,
   SwipeablePanelState
@@ -75,6 +80,7 @@ class SwipeablePanel extends React.Component<
 
   constructor(props: SwipeablePanelProps) {
     super(props);
+    const orientation = FULL_HEIGHT >= FULL_WIDTH ? 'portrait' : 'landscape';
     this.state = {
       status: STATUS.CLOSED,
       isActive: false,
@@ -82,23 +88,22 @@ class SwipeablePanel extends React.Component<
       canScroll: false,
       opacity: new Animated.Value(0),
       pan: new Animated.ValueXY({ x: 0, y: FULL_HEIGHT }),
-      orientation: FULL_HEIGHT >= FULL_WIDTH ? 'portrait' : 'landscape',
+      orientation,
       deviceWidth: FULL_WIDTH,
       deviceHeight: FULL_HEIGHT,
       panelHeight: PANEL_HEIGHT,
+      currentHeight: this.props.smallPanelHeight
+        ? FULL_HEIGHT - this.props.smallPanelHeight
+        : orientation === 'portrait'
+        ? FULL_HEIGHT - 400
+        : FULL_HEIGHT / 3,
     };
-
-    this.state.currentHeight = this.props.smallPanelHeight
-      ? FULL_HEIGHT - this.props.smallPanelHeight
-      : this.state.orientation === 'portrait'
-      ? FULL_HEIGHT - 400
-      : FULL_HEIGHT / 3;
 
     this.pan = new Animated.ValueXY({ x: 0, y: FULL_HEIGHT });
     this.isClosing = false;
     this.animatedValueY = 0;
 
-    const panHandleProperties = {};
+    const panHandleProperties: panHandleProperties = {};
 
     // panning on move allows you to have child touchableOpacity elements
     if (props.panOnMove) {
