@@ -113,11 +113,7 @@ class SwipeablePanel extends React.Component<
 
     // panning on move allows you to have child touchableOpacity elements
     if (props.panOnMove) {
-      panHandleProperties.onMoveShouldSetPanResponder = Platform.select({
-        default: () => true,
-        android: (e: GestureResponderEvent, state: PanResponderGestureState) =>
-          Math.abs(state.dx) > 10 || Math.abs(state.dy) > 10,
-      });
+      panHandleProperties.onMoveShouldSetPanResponder = (e: GestureResponderEvent, state: PanResponderGestureState) => Math.abs(state.dx) > 10 || Math.abs(state.dy) > 10;
     } else {
       panHandleProperties.onStartShouldSetPanResponder = () => true;
     }
